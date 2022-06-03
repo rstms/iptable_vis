@@ -1,0 +1,24 @@
+#!/usr/bin/env python3
+
+import sys
+import click
+import cairosvg 
+
+@click.command()
+@click.option('-d', '--dpi', type=int, default=96, help='dpi [96]')
+@click.option('-W', '--parent-width', type=int, help='parent element width')
+@click.option('-H', '--parent-height', type=int, help='parent element height')
+@click.option('-s', '--scale', type=float, default=1, help='scale [1.0]')
+@click.option('-u', '--unsafe', is_flag=True)
+@click.option('-b', '--background-color', type=str, help='background color if not transparent')
+@click.option('-n', '--negate-colors', is_flag=True)
+@click.option('-i', '--invert_images', is_flag=True)
+@click.option('-w', '--output-width', type=int, help='output width')
+@click.option('-h', '--output-height', type=int, help='output height')
+@click.argument('file_obj', metavar='INPUT', type=click.File('rb'))
+@click.argument('write_to', metavar='OUTPUT', type=click.File('wb'))
+def svgtopdf(**kwargs):
+    cairosvg.svg2pdf(**kwargs)
+
+if __name__=='__main__':
+    sys.exit(svgtopdf())
